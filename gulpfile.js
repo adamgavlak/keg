@@ -44,7 +44,7 @@ task('markup', function() {
 
 task('build', ['styles', 'scripts', 'images', 'fonts', 'markup'])
 
-gulp.task('server', function() {
+gulp.task('server', ['build'], function() {
     browser_sync.init({server: "./public"})
 
     gulp.watch('./app/styles/**/*', ['styles'])
