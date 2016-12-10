@@ -1,3 +1,29 @@
+// Configuration
+var config = {
+    paths: {
+        src: {
+            root: "./app",
+            styles: "/styles/**/*.styl",
+            styles_ignored: "/styles/**/_*.styl",
+            scripts: "/scripts/**/*.js",
+            images: "/assets/images/**/*.{jpg,jpeg,png,svg,gif}",
+            fonts: "/assets/fonts/**/*.{woff,ttf,eof,svg}",
+            markup: "/markup/**/*.pug",
+            markup_ignored: "/markup/**/_*.pug"
+        },
+        dest: {
+            root: "./public",
+            styles: "/assets",
+            scripts: "/assets",
+            images: "/assets/images",
+            fonts: "/assets/fonts"
+        }
+    },
+    template_processor: "pug",
+    css_processor: "stylus",
+    js_processor: null
+}
+
 // Initialization
 var gulp = require('gulp')
 var stylus = require('gulp-stylus')
@@ -9,35 +35,37 @@ var browser_sync = require('browser-sync').create()
 
 // Gulp tasks
 task('styles', function() {
-    gulp.src(['./app/styles/**/*.styl', '!./app/styles/**/_*.styl'])
+    gulp.src([config.paths.src.root + config.paths.src.styles, 
+             "!" + config.paths.src.root + config.paths.src.styles_ignored])
         .pipe(stylus({compress: true}))
-        .pipe(gulp.dest('./public/assets'))
+        .pipe(gulp.dest(config.paths.dest.root + config.paths.dest.styles))
         .pipe(browser_sync.stream())
 })
 
 task('scripts', function() {
-    gulp.src(['./app/scripts/**/*.js'])
+    gulp.src([config.paths.src.scripts])
         .pipe(concat('app.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('./public/assets'))
+        .pipe(gulp.dest(config.paths.dest.root + config.paths.dest.scripts))
         .pipe(browser_sync.stream())
 })
 
 task('images', function() {
-    gulp.src('./app/assets/images/**/*.{jpg,jpeg,png,svg,gif}')
+    gulp.src(config.paths.src.root + config.paths.src.images)
         .pipe(imagemin())
-        .pipe(gulp.dest('./public/assets/images'))
+        .pipe(gulp.dest(config.paths.dest.root + config.paths.dest.images))
         .pipe(browser_sync.stream())
 })
 
 task('fonts', function() {
-    gulp.src('./app/assets/fonts/**/*.{ttf,woff,eof,svg}')
+    gulp.src(config.paths.src.root + config.paths.src.fonts)
         .pipe(gulp.dest('./public/assets/fonts'))
         .pipe(browser_sync.stream())
 })
 
 task('markup', function() {
-    gulp.src(['./app/markup/**/*.pug', '!./app/markup/**/_*.pug'])
+    gulp.src([config.paths.src.root + config.paths.src.markup, 
+             "!" + config.paths.src.root + config.paths.src.markup_ignored])
         .pipe(pug({pretty: true}))
         .pipe(gulp.dest('./public'))
 })
@@ -47,9 +75,9 @@ task('build', ['styles', 'scripts', 'images', 'fonts', 'markup'])
 gulp.task('server', ['build'], function() {
     browser_sync.init({server: "./public"})
 
-    gulp.watch('./app/styles/**/*', ['styles'])
-    gulp.watch('./app/scripts/**/*', ['scripts'])
-    gulp.watch('./app/markup/**/*', ['markup'])
+    gulp.watch(config.paths.src.root + config.paths.src.styles, ['styles'])
+    gulp.watch(config.paths.src.scripts, ['scripts'])
+    gulp.watch(config.paths.src.root + config.paths.src.markup, ['markup'])
     gulp.watch('./public/**/*').on('change', browser_sync.reload)
 })
 
