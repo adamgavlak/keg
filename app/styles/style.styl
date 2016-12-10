@@ -1,31 +1,39 @@
 @import "_normalize"
+@import "_billy"
 @import "_included_file"
 
 body, html
   height 100vh
 
 body
-  background-image linear-gradient(45deg, #B066FE, #63E2FF)
+  background-image linear-gradient(45deg, #5533FF, #25DDF5)
   background-size 100% 100%
   
 .keg
   height 100%
-  display -webkit-flex
-  display -moz-flex
-  display -ms-flex
-  display -o-flex
   display flex
   justify-content center
   align-items center
   
 h1
   color white
-  font-size 4em
-  letter-spacing 0.1em
+  font-size 7em
+  letter-spacing 0.05em
   font-weight 600
-  text-transform uppercase
-  border 0.12em dashed white
-  padding 0.25em
+  line-height 0.75
+  border-radius 0.5em
+  padding 0.25em 0.2em 0.25em 0.25em
+  margin 0
+  text-align center
+  font-family 'billy', 'Helvetica', sans-serif
+  
+p
+  font-family monospace
+  margin 0
+  letter-spacing 0.03em
+  color rgba(white, 0.8)
+  font-size 14px
+  text-align center
   
 ::selection
-  background rgba(#fff, 0.3)
+  background rgba(#0f9, 1)

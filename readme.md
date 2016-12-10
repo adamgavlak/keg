@@ -1,4 +1,4 @@
-<p align="center"><img width="100px" src="https://raw.githubusercontent.com/gavlak/keg/master/app/assets/images/logo.png"></p>
+<img width="80px" src="https://raw.githubusercontent.com/gavlak/keg/master/app/assets/images/logo.png">
 
 # Keg
 
@@ -11,14 +11,14 @@ The only requirements are Node.js and NPM (though I prefer Yarn).
 ### Installation
 
 ```
-    $ git clone https://github.com/gavlak/keg.git project_name
-    $ cd project_name
+$ git clone https://github.com/gavlak/keg.git project_name
+$ cd project_name
     
-    # if you're using npm
-    $ npm install
+# if you're using npm
+$ npm install
 
-    # or if you're using yarn
-    $ yarn
+# or if you're using yarn
+$ yarn
 ```
 
 ## How to use Keg
